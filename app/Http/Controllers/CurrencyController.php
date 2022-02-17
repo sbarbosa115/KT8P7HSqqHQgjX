@@ -18,9 +18,16 @@ class CurrencyController extends Controller
      */
     public function index(FixerDataProvider $dataProvider): JsonResponse
     {
-        return response()->json(
-            $dataProvider->getCurrencies()
-        );
+        $currencies = [];
+
+        foreach ($dataProvider->getCurrencies() as $currencySymbol => $currency) {
+            $currencies[] = [
+                'name' => $currency,
+                'symbol' => $currencySymbol
+            ];
+        }
+
+        return response()->json($currencies);
     }
 
     /**
@@ -30,6 +37,9 @@ class CurrencyController extends Controller
     {
         $data = $request->all();
 
-        return response()->json($dataProvider->exchange($data['from'], $data['to'], $data['amount']));
+        return response()->json([
+            ...$data,
+            'amount_exchanged' => $dataProvider->convertCurrencies($data['from'], $data['to'], $data['amount'])
+        ]);
     }
 }

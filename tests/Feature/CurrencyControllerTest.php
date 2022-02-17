@@ -25,6 +25,7 @@ class CurrencyControllerTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+        $this->assertEquals('{"from":"EUR","to":"USD","amount":1.05,"amount_exchanged":1.1905078500000001}', $response->content());
     }
 
     public function test_attempting_to_exchange_generates_error()
