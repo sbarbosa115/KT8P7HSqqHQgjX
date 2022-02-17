@@ -12,5 +12,27 @@ Two endpoints were created
 
 GET http://localhost/api/currency
 Description: Returns all available currencies.
-Response:
+Response array of names and symbols
+Example:
+<br />
+```
+[{"name":"United Arab Emirates Dirham","symbol":"AED"},{"name":"Afghan Afghani","symbol":"AFN"},{"name":"Albanian Lek","symbol":"ALL"},{"name":"Armenian Dram","symbol":"AMD"}]
+```
+
+POST http://localhost/api/currency/exchange
+Description: Returns convert a currency into another 
+Body Parameters:
+<br />
+```
+"from": "USD",
+"to": "EUR",
+"amount": 1.05
+```
+Response: 
+```
+"from": "USD",
+"to": "EUR",
+"amount": 1.05,
+"amount_exchanged": 0.93
+```
 
